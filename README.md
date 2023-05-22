@@ -18,8 +18,8 @@ performance.
 **1. Set Indexes**
 * Set and use index for columns that used for filter and join the relation tables
 ```
-	ALTER TABLE JobCategories
-	ADD INDEX name (name);
+ALTER TABLE JobCategories
+ADD INDEX name (name);
 ```
 **2. Specify related columns**
 * Limit the number of columns or use only related columns for `SELECT` function. Especially for columns that have long text. 
