@@ -245,7 +245,7 @@ OR Jobs.id IN
 	UNION
 	SELECT j5.id FROM jobs j5 WHERE j5.knowledge LIKE 'キャビンアテンダント%' AND j5.publish_status = 1 AND (j5.deleted) IS NULL 
 	UNION
-	SELECT j6.id FROM jobs j6 WHERE j6.location LIKE 'キャビンアテンダント%' AND j6.publish_status = 1 AND (6.deleted) IS NULL 
+	SELECT j6.id FROM jobs j6 WHERE j6.location LIKE 'キャビンアテンダント%' AND j6.publish_status = 1 AND (j6.deleted) IS NULL 
 	UNION
 	SELECT j7.id FROM jobs j7 WHERE j7.activity LIKE 'キャビンアテンダント%' AND j7.publish_status = 1 AND (j7.deleted) IS NULL 
 	UNION
