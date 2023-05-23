@@ -16,7 +16,7 @@ performance.
 ### Suggestion Improvements
 
 **1. Set Indexes**
-* Set and use index for columns that used for filter and join the relation tables
+* Set and use index for columns that used for filter and join the relation tables.
 ```
 ALTER TABLE JobCategories
 ADD INDEX name (name);
@@ -36,7 +36,7 @@ ADD INDEX name (name);
 ```
 
 **3. Specify column with its table name when `JOIN` tables**
-* Set the column by its table name or its alias
+* Set the column by its table name or its alias.
 > **Note:** From the query, column status in `WHERE` clause not specify the table name. So it can cause to query error for some of SQL versions.
 ```
 AND Jobs.publish_status = 1
@@ -70,7 +70,7 @@ AND (Jobs.deleted) IS NULL)
 ```
 
 **5. Minimize `OR` usage as filtering**
-* Replace the `OR` with `UNION` usage for same table filtering
+* Replace the `OR` with `UNION` usage for same table filtering.
 > **Note:** For table `jobs` in the query, there are too many `OR` usage from the same table in filtering which is lead to poor performance. Can use `UNION` instead because it can filter in a combination of tables.
 ```
 WHERE ((JobCategories.name LIKE 'キャビンアテンダント%'
@@ -111,7 +111,7 @@ AND (Jobs.deleted) IS NULL
 ```
 
 **6.Minimize number of tables `JOIN`**
-* Reduce multiple tables joined that is not related 
+* Reduce multiple tables joined that is not related.
 > **Note:**: In case of the query, the table `affiliates` has joined multiple time just only for filtering and not select any column for display as well as its relation tables `jobs_tools`, `jobs_career_paths`, `jobs_rec_qualifications` and `jobs_req_qualifications`.
 > Table `affiliates` also has multiple `OR` usage to filter the column `name` where they actually came from the same table.
 > So that we can **replace** all the `LEFT JOIN` came from these tables and try to use `INNER JOIN` with subquery because it will result from both table to match.
@@ -147,7 +147,7 @@ ON ( Jobs.id = (JobsBasicAbilities.job_id)
 AND JobsBasicAbilities.basic_ability_id IN (SELECT BasicAbilities.id FROM basic_abilities BasicAbilities WHERE (BasicAbilities.deleted) IS NULL AND BasicAbilities.name LIKE '%キャビンアテンダント%') )
 ```
 
-> Remove the `OR` for all related to table `affiliate` in `WHERE` clause as we already use the filter in subquery above
+> Remove the `OR` for all related to tables in `WHERE` clause as we already use the filter in `INNER JOIN` subquery above.
 ```
 ~~OR Personalities.name LIKE '%キャビンアテンダント%'~~
 ~~OR PracticalSkills.name LIKE '%キャビンアテンダント%'~~
@@ -160,7 +160,7 @@ AND JobsBasicAbilities.basic_ability_id IN (SELECT BasicAbilities.id FROM basic_
 
 ---
 
-###Final Query
+### Final Query
 ```
 SELECT Jobs.id AS `Jobs__id`,
 Jobs.name AS `Jobs__name`,
