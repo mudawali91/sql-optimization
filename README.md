@@ -191,7 +191,7 @@ JobCategories.id AS `JobCategories__id`,
 JobCategories.name AS `JobCategories__name`,
 JobTypes.id AS `JobTypes__id`,
 JobTypes.name AS `JobTypes__name`,
-JobTypes.job_category_id AS `JobTypes__job_category_id`,
+JobTypes.job_category_id AS `JobTypes__job_category_id`
 
 FROM jobs Jobs
 
@@ -233,8 +233,7 @@ AND (JobTypes.deleted) IS NULL)
 
 WHERE ((JobCategories.name LIKE '%キャビンアテンダント%'
 OR JobTypes.name LIKE '%キャビンアテンダント%'
-OR Jobs.id IN 
-(
+OR Jobs.id IN (
 	SELECT j1.id FROM jobs j1 WHERE j1.name LIKE 'キャビンアテンダント%' AND j1.publish_status = 1 AND (j1.deleted) IS NULL 
 	UNION
 	SELECT j2.id FROM jobs j2 WHERE j2.description LIKE 'キャビンアテンダント%' AND j2.publish_status = 1 AND (j2.deleted) IS NULL 
@@ -256,7 +255,8 @@ OR Jobs.id IN
 	SELECT j10.id FROM jobs j10 WHERE j10.restriction LIKE 'キャビンアテンダント%' AND j10.publish_status = 1 AND (j10.deleted) IS NULL 
 	UNION
 	SELECT j11.id FROM jobs j11 WHERE j11.remarks LIKE 'キャビンアテンダント%' AND j11.publish_status = 1 AND (j11.deleted) IS NULL 
-))
+	)
+)
 AND Jobs.publish_status = 1
 AND (Jobs.deleted) IS NULL)
 GROUP BY Jobs.id
